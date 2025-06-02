@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusModule.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250602115244_mig002")]
+    partial class mig002
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -124,12 +127,12 @@ namespace BusModule.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            Id = 2,
                             Name = "One Way"
                         },
                         new
                         {
-                            Id = 2,
+                            Id = 3,
                             Name = "Two Way"
                         });
                 });
@@ -204,12 +207,12 @@ namespace BusModule.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            Id = 2,
                             Name = "Primary"
                         },
                         new
                         {
-                            Id = 2,
+                            Id = 3,
                             Name = "Kindergarten"
                         });
                 });
@@ -240,12 +243,6 @@ namespace BusModule.Migrations
                             Id = 1,
                             FullName = "Ali Ahmed",
                             Grade = "Grade 3"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            FullName = "Salma Ibrahim",
-                            Grade = "Grade 4"
                         });
                 });
 

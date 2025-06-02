@@ -12,6 +12,11 @@ namespace BusModule.AutoMapper
             CreateMap<BusType, BusTypeDto>().ReverseMap();
             CreateMap<BusCategory, BusCategoryDto>().ReverseMap();
             CreateMap<Bus, BusDto>().ReverseMap();
+            CreateMap<Bus, BusDto>().ReverseMap();
+            CreateMap<BusAssignment, BusAssignmentDto>().ReverseMap();
+            CreateMap<BusRoute, BusRouteDto>().ReverseMap();
+            CreateMap<Student, StudentDto>().ReverseMap();
+
 
         }
     }

@@ -21,6 +21,9 @@ builder.Services.AddScoped<IBusTypeService, BusTypeService>();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 builder.Services.AddScoped<IBusCategoryService, BusCategoryService>();
 builder.Services.AddScoped<IBusService, BusService>();
+builder.Services.AddScoped<IBusAssignmentService, BusAssignmentService>();
+builder.Services.AddScoped<IBusRouteService, BusRouteService>();
+builder.Services.AddScoped<IStudentService, StudentService>();
 
 
 var app = builder.Build();

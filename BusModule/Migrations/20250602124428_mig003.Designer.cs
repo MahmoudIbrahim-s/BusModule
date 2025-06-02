@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusModule.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250602124428_mig003")]
+    partial class mig003
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -120,18 +123,6 @@ namespace BusModule.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("BusCategories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "One Way"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Two Way"
-                        });
                 });
 
             modelBuilder.Entity("BusModule.Models.BusRoute", b =>
@@ -200,18 +191,6 @@ namespace BusModule.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("BusTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Primary"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Kindergarten"
-                        });
                 });
 
             modelBuilder.Entity("BusModule.Models.Student", b =>
