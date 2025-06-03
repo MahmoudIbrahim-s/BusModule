@@ -11,14 +11,15 @@ public class AppDbContext : DbContext
     public DbSet<Bus> Buses { get; set; }
     public DbSet<Student> Students { get; set; }
     public DbSet<BusAssignment> BusAssignments { get; set; }
+    public DbSet<Employee> Employees { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
-        // ----------------------------
+   
         // Entity Relationships
-        // ----------------------------
+        
 
         modelBuilder.Entity<BusAssignment>()
             .HasOne(ba => ba.Student)
@@ -46,10 +47,15 @@ public class AppDbContext : DbContext
             .HasOne(b => b.BusRoute)
             .WithMany(br => br.Buses)
             .HasForeignKey(b => b.BusRouteId);
+        modelBuilder.Entity<Bus>()
+            .HasOne(b => b.Driver)
+            .WithMany(e => e.Buses)
+            .HasForeignKey(b => b.DriverId)
+            .OnDelete(DeleteBehavior.Restrict);
 
-        // ----------------------------
+
         // Seed Data
-        // ----------------------------
+       
 
         modelBuilder.Entity<BusType>().HasData(
             new BusType { Id = 1, Name = "Primary" },
@@ -81,13 +87,13 @@ public class AppDbContext : DbContext
                 EndTime = new TimeSpan(8, 45, 0)
             }
         );
-
+        // this seed not added to the database --> i don't know why 
         modelBuilder.Entity<Bus>().HasData(
             new Bus
             {
                 Id = 1,
                 BusNumber = "BUS-101",
-                DriverId = 10, // mock employee ID
+                DriverId = 10, 
                 BusTypeId = 1,
                 BusCategoryId = 2,
                 BusRouteId = 1,
@@ -96,7 +102,7 @@ public class AppDbContext : DbContext
                 IsCapacityRestricted = true
             }
         );
-
+        //----------------------
         modelBuilder.Entity<Student>().HasData(
             new Student
             {
@@ -109,6 +115,25 @@ public class AppDbContext : DbContext
                 Id = 2,
                 FullName = "Salma Ibrahim",
                 Grade = "Grade 4"
+            }
+        );
+        modelBuilder.Entity<Employee>().HasData(
+            new Employee
+            {
+                Id = 10,
+                FullName = "John Doe",
+                Email = "John@example.com",
+                PasswordHash = "123456",
+                Role = "Driver"
+
+            },
+            new Employee
+            {
+                Id = 11,
+                FullName = "Jane Smith",
+                Email = "Jane@example.com",
+                PasswordHash = "123456",
+                Role = "Admin"
             }
         );
     }

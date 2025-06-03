@@ -15,15 +15,17 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+// register AutoMapper
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+// register services
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IBusTypeService, BusTypeService>();
-builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 builder.Services.AddScoped<IBusCategoryService, BusCategoryService>();
 builder.Services.AddScoped<IBusService, BusService>();
 builder.Services.AddScoped<IBusAssignmentService, BusAssignmentService>();
 builder.Services.AddScoped<IBusRouteService, BusRouteService>();
 builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 
 
 var app = builder.Build();

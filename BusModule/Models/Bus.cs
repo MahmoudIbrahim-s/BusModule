@@ -16,6 +16,7 @@
         public BusType? BusType { get; set; }
         public BusCategory? BusCategory { get; set; }
         public BusRoute? BusRoute { get; set; }
+        public Employee? Driver { get; set; }
 
         public ICollection<BusAssignment>? Assignments { get; set; }
     }
