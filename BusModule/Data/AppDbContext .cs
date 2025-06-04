@@ -12,6 +12,7 @@ public class AppDbContext : DbContext
     public DbSet<Student> Students { get; set; }
     public DbSet<BusAssignment> BusAssignments { get; set; }
     public DbSet<Employee> Employees { get; set; }
+    public DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -52,10 +53,14 @@ public class AppDbContext : DbContext
             .WithMany(e => e.Buses)
             .HasForeignKey(b => b.DriverId)
             .OnDelete(DeleteBehavior.Restrict);
+        modelBuilder.Entity<Bus>()
+         .Property(b => b.Fees)
+           .HasPrecision(10, 4);
+
 
 
         // Seed Data
-       
+
 
         modelBuilder.Entity<BusType>().HasData(
             new BusType { Id = 1, Name = "Primary" },
@@ -87,11 +92,12 @@ public class AppDbContext : DbContext
                 EndTime = new TimeSpan(8, 45, 0)
             }
         );
+
         // this seed not added to the database --> i don't know why 
         modelBuilder.Entity<Bus>().HasData(
             new Bus
             {
-                Id = 1,
+                Id = 10,
                 BusNumber = "BUS-101",
                 DriverId = 10, 
                 BusTypeId = 1,
