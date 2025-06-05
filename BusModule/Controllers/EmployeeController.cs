@@ -32,7 +32,7 @@ public class EmployeeController : ControllerBase
     public async Task<IActionResult> Create([FromBody] EmployeeCreateRequest request)
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
-        var created = await _service.CreateAsync(request.Employee, request.Password);
+        var created = await _service.CreateAsync(request.Employee);
         return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
     }
 

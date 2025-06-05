@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusModule.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250605131152_mig011")]
+    partial class mig011
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -260,14 +263,14 @@ namespace BusModule.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("EmployeeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("EncryptedEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HashedPassword")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -289,40 +292,6 @@ namespace BusModule.Migrations
                         .HasFilter("[StudentId] IS NOT NULL");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Email = "ali@student.com",
-                            Password = "123456",
-                            Role = "Student",
-                            StudentId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Email = "salma@student.com",
-                            Password = "654321",
-                            Role = "Student",
-                            StudentId = 2
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Email = "john@driver.com",
-                            EmployeeId = 10,
-                            Password = "driver123",
-                            Role = "Driver"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Email = "jane@admin.com",
-                            EmployeeId = 11,
-                            Password = "admin123",
-                            Role = "Admin"
-                        });
                 });
 
             modelBuilder.Entity("Employee", b =>

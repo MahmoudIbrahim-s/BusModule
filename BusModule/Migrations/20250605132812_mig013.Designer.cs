@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusModule.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250605132812_mig013")]
+    partial class mig013
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -293,7 +296,7 @@ namespace BusModule.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            Id = 3,
                             Email = "ali@student.com",
                             Password = "123456",
                             Role = "Student",
@@ -301,7 +304,7 @@ namespace BusModule.Migrations
                         },
                         new
                         {
-                            Id = 2,
+                            Id = 4,
                             Email = "salma@student.com",
                             Password = "654321",
                             Role = "Student",
@@ -309,7 +312,7 @@ namespace BusModule.Migrations
                         },
                         new
                         {
-                            Id = 3,
+                            Id = 5,
                             Email = "john@driver.com",
                             EmployeeId = 10,
                             Password = "driver123",
@@ -317,7 +320,7 @@ namespace BusModule.Migrations
                         },
                         new
                         {
-                            Id = 4,
+                            Id = 6,
                             Email = "jane@admin.com",
                             EmployeeId = 11,
                             Password = "admin123",

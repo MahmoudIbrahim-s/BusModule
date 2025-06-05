@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using BusModule.DTOs;
 using BusModule.Repositories;
-using BusModule.Security;
 
 namespace BusModule.Services
 {
@@ -24,11 +23,10 @@ namespace BusModule.Services
             var employee = await _repository.GetByIdAsync(id);
             return employee == null ? null : _mapper.Map<EmployeeDto>(employee);
         }
-        public async Task<EmployeeDto> CreateAsync(EmployeeDto dto, string password)
+        public async Task<EmployeeDto> CreateAsync(EmployeeDto dto)
         {
             var employee = _mapper.Map<Employee>(dto);
-            employee.PasswordHash = PasswordHasher.HashPassword(password);
-            employee.Email = employee.Email.ToLower(); // Ensure email is lowercase
+           
             await _repository.AddAsync(employee);
             await _repository.SaveAsync();
             return _mapper.Map<EmployeeDto>(employee);

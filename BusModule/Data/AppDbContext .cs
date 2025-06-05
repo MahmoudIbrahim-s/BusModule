@@ -56,12 +56,21 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<Bus>()
          .Property(b => b.Fees)
            .HasPrecision(10, 4);
+        // User → Student
+        modelBuilder.Entity<User>()
+            .HasOne(u => u.Student)
+            .WithOne(s => s.User)
+            .HasForeignKey<User>(u => u.StudentId)
+            .OnDelete(DeleteBehavior.Restrict);
 
-
+        // User → Employee
+        modelBuilder.Entity<User>()
+            .HasOne(u => u.Employee)
+            .WithOne(e => e.User)
+            .HasForeignKey<User>(u => u.EmployeeId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         // Seed Data
-
-
         modelBuilder.Entity<BusType>().HasData(
             new BusType { Id = 1, Name = "Primary" },
             new BusType { Id = 2, Name = "Kindergarten" }
@@ -93,7 +102,7 @@ public class AppDbContext : DbContext
             }
         );
 
-        // this seed not added to the database --> i don't know why 
+       
         modelBuilder.Entity<Bus>().HasData(
             new Bus
             {
@@ -108,7 +117,6 @@ public class AppDbContext : DbContext
                 IsCapacityRestricted = true
             }
         );
-        //----------------------
         modelBuilder.Entity<Student>().HasData(
             new Student
             {
@@ -128,8 +136,6 @@ public class AppDbContext : DbContext
             {
                 Id = 10,
                 FullName = "John Doe",
-                Email = "John@example.com",
-                PasswordHash = "123456",
                 Role = "Driver"
 
             },
@@ -137,10 +143,43 @@ public class AppDbContext : DbContext
             {
                 Id = 11,
                 FullName = "Jane Smith",
-                Email = "Jane@example.com",
-                PasswordHash = "123456",
                 Role = "Admin"
             }
         );
+        modelBuilder.Entity<User>().HasData(
+    new User
+    {
+        Id = 1,
+        Email = "ali@student.com",
+        Password = "123456",
+        Role = "Student",
+        StudentId = 1
+    },
+    new User
+    {
+        Id = 2,
+        Email = "salma@student.com",
+        Password = "654321",
+        Role = "Student",
+        StudentId = 2
+    },
+    new User
+    {
+        Id = 3,
+        Email = "john@driver.com",
+        Password = "driver123",
+        Role = "Driver",
+        EmployeeId = 10
+    },
+    new User
+    {
+        Id = 4,
+        Email = "jane@admin.com",
+        Password = "admin123",
+        Role = "Admin",
+        EmployeeId = 11
+    }
+);
+
     }
 }

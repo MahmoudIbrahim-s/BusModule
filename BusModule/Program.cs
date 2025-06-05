@@ -1,14 +1,9 @@
-using AutoMapper;
 using BusModule.AutoMapper;
 using BusModule.Models;
 using BusModule.Repositories;
 using BusModule.Services;
-using BusModule.Services.Auth;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authentication.Negotiate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Net.Security;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,22 +17,22 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 
 // Add authentication and authorization services
-builder.Services.AddScoped<IAuthService, AuthService>();
+//builder.Services.AddScoped<IAuthService, AuthService>();
 
-builder.Services.AddAuthentication("Bearer")
-    .AddJwtBearer("Bearer", options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = false,
-            ValidateAudience = false,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)
-            )
-        };
-    });
+//builder.Services.AddAuthentication("Bearer")
+//    .AddJwtBearer("Bearer", options =>
+//    {
+//        options.TokenValidationParameters = new TokenValidationParameters
+//        {
+//            ValidateIssuer = false,
+//            ValidateAudience = false,
+//            ValidateLifetime = true,
+//            ValidateIssuerSigningKey = true,
+//            IssuerSigningKey = new SymmetricSecurityKey(
+//                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)
+//            )
+//        };
+//    });
 
 builder.Services.AddAuthorization();
 

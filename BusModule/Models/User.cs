@@ -4,13 +4,17 @@
     {
         public int Id { get; set; }
 
-        public string EncryptedEmail { get; set; } = string.Empty;
-        public string HashedPassword { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
 
         public string Role { get; set; } = "Student"; //  "Student";  or "Admin"
 
-        public int? UserId { get; set; }
+        public int? StudentId { get; set; }
+        public Student? Student { get; set; }
+
+        public int? EmployeeId { get; set; }
+        public Employee? Employee { get; set; }
     }
-    
-    }
+
+}
 
