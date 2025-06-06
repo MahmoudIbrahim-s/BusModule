@@ -1,5 +1,6 @@
 ﻿using BusModule.DTOs;
 using BusModule.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
@@ -12,6 +13,7 @@ public class BusAssignmentController : ControllerBase
     {
         _service = service;
     }
+    [Authorize(Roles = "Admin")]
 
     [HttpPost("assign")]
     public async Task<IActionResult> AssignStudent([FromBody] BusAssignmentDto dto)
@@ -21,7 +23,7 @@ public class BusAssignmentController : ControllerBase
             return BadRequest("Assignment failed: Check capacity or duplicate assignment.");
         return Ok("Student assigned successfully.");
     }
-
+    [Authorize(Roles = "Admin")]
     [HttpPost("transfer")]
     public async Task<IActionResult> TransferStudent([FromBody] BusAssignmentDto dto)
     {
@@ -30,6 +32,7 @@ public class BusAssignmentController : ControllerBase
             return BadRequest("Transfer failed: Bus may be full or student not assigned.");
         return Ok("Student transferred successfully.");
     }
+    [Authorize(Roles = "Admin,Student")]
 
     [HttpGet("student/{studentId}")]
     public async Task<IActionResult> GetStudentBus(int studentId)

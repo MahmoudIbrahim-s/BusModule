@@ -1,10 +1,12 @@
 ﻿using BusModule.DTOs;
 using BusModule.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BusModule.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class BusRouteController : ControllerBase

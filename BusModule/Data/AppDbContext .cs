@@ -18,9 +18,9 @@ public class AppDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-   
+
         // Entity Relationships
-        
+
 
         modelBuilder.Entity<BusAssignment>()
             .HasOne(ba => ba.Student)
@@ -102,13 +102,13 @@ public class AppDbContext : DbContext
             }
         );
 
-       
+
         modelBuilder.Entity<Bus>().HasData(
             new Bus
             {
                 Id = 10,
                 BusNumber = "BUS-101",
-                DriverId = 10, 
+                DriverId = 10,
                 BusTypeId = 1,
                 BusCategoryId = 2,
                 BusRouteId = 1,
@@ -147,39 +147,40 @@ public class AppDbContext : DbContext
             }
         );
         modelBuilder.Entity<User>().HasData(
-    new User
-    {
-        Id = 1,
-        Email = "ali@student.com",
-        Password = "123456",
-        Role = "Student",
-        StudentId = 1
-    },
-    new User
-    {
-        Id = 2,
-        Email = "salma@student.com",
-        Password = "654321",
-        Role = "Student",
-        StudentId = 2
-    },
-    new User
-    {
-        Id = 3,
-        Email = "john@driver.com",
-        Password = "driver123",
-        Role = "Driver",
-        EmployeeId = 10
-    },
-    new User
-    {
-        Id = 4,
-        Email = "jane@admin.com",
-        Password = "admin123",
-        Role = "Admin",
-        EmployeeId = 11
-    }
-);
+          new User
+          {
+              Id = 1,
+              Email = "Admin@student.com",
+              Password = "admin123456",
+              Role = "Admin",
+              EmployeeId = 11
+          });
+        //    new User
+        //    {
+        //        Id = 2,
+        //        Email = "salma@student.com",
+        //        Password = "654321",
+        //        Role = "Student",
+        //        StudentId = 2
+        //    },
+        //    new User
+        //    {
+        //        Id = 3,
+        //        Email = "john@driver.com",
+        //        Password = "driver123",
+        //        Role = "Driver",
+        //        EmployeeId = 10
+        //    },
+        //    new User
+        //    {
+        //        Id = 4,
+        //        Email = "jane@admin.com",
+        //        Password = "admin123",
+        //        Role = "Admin",
+        //        EmployeeId = 11
+        //    }
+        //);
 
+        //    }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using BusModule.DTOs;
 using BusModule.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("api/[controller]")]
+
 public class StudentController : ControllerBase
 {
     private readonly IStudentService _service;
@@ -12,14 +14,14 @@ public class StudentController : ControllerBase
     {
         _service = service;
     }
-
+    [Authorize(Roles = "Student,Admin")]
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
         var result = await _service.GetAllAsync();
         return Ok(result);
     }
-
+    [Authorize(Roles = "Student,Admin")]
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
@@ -27,6 +29,7 @@ public class StudentController : ControllerBase
         if (result == null) return NotFound();
         return Ok(result);
     }
+    [Authorize(Roles = "Student,Admin")]
 
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] StudentDto dto)
@@ -36,7 +39,7 @@ public class StudentController : ControllerBase
         var created = await _service.CreateAsync(dto);
         return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
     }
-
+    [Authorize(Roles = "Student,Admin")]
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, [FromBody] StudentDto dto)
     {
@@ -47,7 +50,7 @@ public class StudentController : ControllerBase
 
         return NoContent();
     }
-
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
