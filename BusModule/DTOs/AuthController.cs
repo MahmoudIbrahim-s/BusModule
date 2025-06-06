@@ -10,7 +10,7 @@ namespace BusModule.DTOs
     public class AuthController(IAuthService authService) : ControllerBase
     {
         [HttpPost("register")]
-        public async Task<IActionResult> Register(UserDto userDto)
+        public async Task<ActionResult> Register(UserDto userDto)
         {
             var user = await authService.RegisterAsync(userDto);
             if (user == null)
@@ -20,15 +20,28 @@ namespace BusModule.DTOs
             return Ok(new { user.Id, user.Email, user.Role });
         }
         [HttpPost("login")]
-        public async Task<IActionResult> Login(UserDto userDto)
+        public async Task<ActionResult<TokenResponseDto>> Login(UserDto userDto)
         {
-            var token = await authService.LoginAsync(userDto);
-            if (token == null)
+            var result = await authService.LoginAsync(userDto);
+            if (result == null)
             {
                 return Unauthorized("Invalid credentials.");
             }
-            return Ok(new { Token = token });
+            return Ok(new { Token = result });
         }
+        [HttpPost("refresh-token")]
+        public async Task<ActionResult<TokenResponseDto>> RefreshToken(RefreshTokenRequestDto requestDto)
+        {
+            var result = await authService.RefreshTokenAsync(requestDto);
+            if (result == null || result.AccessToken == null || result.RefreshToken == null)
+            {
+                return Unauthorized("Invalid or expired refresh token.");
+            }
+            return Ok(new { Token = result });
+        }
+
+
+
         [Authorize]
         [HttpGet]
         public IActionResult AuthonticatedOnlyEndpoint()

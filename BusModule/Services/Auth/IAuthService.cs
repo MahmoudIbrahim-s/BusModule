@@ -6,6 +6,7 @@ namespace BusModule.Services.Auth
     public interface IAuthService
     {
         Task<User> RegisterAsync(UserDto user);
-        Task<string> LoginAsync(UserDto user);
+        Task<TokenResponseDto?> LoginAsync(UserDto user);
+        Task<TokenResponseDto?> RefreshTokenAsync(RefreshTokenRequestDto request);
     }
 }
